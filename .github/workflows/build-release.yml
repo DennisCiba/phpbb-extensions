@@ -1,0 +1,34 @@
+name: 'Build Release'
+
+on:
+  workflow_dispatch:
+    inputs:
+      extension:
+        description: 'Which extension to create a release for'
+        required: true
+        default: honeypotantispam
+        type: choice
+        options:
+        - honeypotantispam
+      version:
+        description: 'Name of the release version'
+        required: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3.1.0
+
+      - name: Create build artifact for honeypotantispam extension
+        run: |
+          mkdir -p dist/nachvollciba
+          mv honeypotantispam dist/nachvollciba
+          cd dist
+          zip -r honeypotantispam nachvollciba
+      
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ github.event.inputs.extension }}-${{ github.event.inputs.version }}
+          files: dist/honeypotantispam.zip
