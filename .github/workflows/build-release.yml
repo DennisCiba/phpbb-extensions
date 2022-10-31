@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       extension:
-        description: 'Which extension to create a release for'
+        description: 'Which extension release'
         required: true
         default: honeypotantispam
         type: choice
