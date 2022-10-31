@@ -1,0 +1,8 @@
+services:
+    nachvollciba.honeypotantispam.listener:
+        class: nachvollciba\honeypotantispam\event\listener
+        arguments:
+            - '@language'
+            - '@request'
+        tags:
+            - { name: event.listener }
